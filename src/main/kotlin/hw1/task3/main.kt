@@ -1,6 +1,6 @@
 package hw1.task3
 
-enum class Command {
+enum class UserCommand {
     EXIT_COMMAND,
     PRINT_COMMAND,
     ADD_TO_START_COMMAND,
@@ -49,26 +49,26 @@ fun main() {
     do {
         showInputHint()
         var command = readLine()?.toIntOrNull()
-        while (command == null || command < Command.EXIT_COMMAND.ordinal || command > Command.UNDO_COMMAND.ordinal) {
+        while (command == null || command < UserCommand.EXIT_COMMAND.ordinal || command > UserCommand.UNDO_COMMAND.ordinal) {
             println("Incorrect input. Try again:")
             command = readLine()?.toIntOrNull()
         }
 
         when (command) {
-            Command.EXIT_COMMAND.ordinal -> mustContinue = false
+            UserCommand.EXIT_COMMAND.ordinal -> mustContinue = false
 
-            Command.ADD_TO_START_COMMAND.ordinal -> {
+            UserCommand.ADD_TO_START_COMMAND.ordinal -> {
                 var newValue = inputNumberToAdd()
                 InsertForward(newValue, storage).perform()
             }
 
-            Command.ADD_TO_END_COMMAND.ordinal -> {
+            UserCommand.ADD_TO_END_COMMAND.ordinal -> {
                 println("Enter a number to add to end:")
                 var newValue = inputNumberToAdd()
                 InsertBack(newValue, storage).perform()
             }
 
-            Command.MOVE_COMMAND.ordinal -> {
+            UserCommand.MOVE_COMMAND.ordinal -> {
                 println("Enter the index move from:")
                 var indexFrom = inputIndex(storage)
 
@@ -78,11 +78,11 @@ fun main() {
                 Move(indexFrom, indexTo, storage).perform()
             }
 
-            Command.UNDO_COMMAND.ordinal -> {
+            UserCommand.UNDO_COMMAND.ordinal -> {
                 storage.undoLastAction()
             }
 
-            Command.PRINT_COMMAND.ordinal -> {
+            UserCommand.PRINT_COMMAND.ordinal -> {
                 println("List of numbers:")
                 storage.data.forEach { print("$it ") }
                 println("")
