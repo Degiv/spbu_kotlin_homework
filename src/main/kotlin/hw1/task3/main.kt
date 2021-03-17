@@ -55,20 +55,24 @@ fun main() {
         }
 
         when (command) {
+
             UserCommand.EXIT.ordinal -> mustContinue = false
 
             UserCommand.ADD_TO_START.ordinal -> {
+
                 var newValue = inputNumberToAdd()
                 InsertForward(newValue, storage).perform()
             }
 
             UserCommand.ADD_TO_END.ordinal -> {
+
                 println("Enter a number to add to end:")
                 var newValue = inputNumberToAdd()
                 InsertBack(newValue, storage).perform()
             }
 
             UserCommand.MOVE.ordinal -> {
+
                 println("Enter the index move from:")
                 var indexFrom = inputIndex(storage)
 
@@ -83,6 +87,7 @@ fun main() {
             }
 
             UserCommand.PRINT.ordinal -> {
+
                 println("List of numbers:")
                 storage.data.forEach { print("$it ") }
                 println("")
