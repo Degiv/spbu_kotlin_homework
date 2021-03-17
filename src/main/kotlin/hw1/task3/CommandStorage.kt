@@ -1,6 +1,6 @@
 package hw1.task3
 
-class PerformedCommandStorage {
+class CommandStorage {
     var data = mutableListOf<Int>()
     var commandList = mutableListOf<Action>()
 

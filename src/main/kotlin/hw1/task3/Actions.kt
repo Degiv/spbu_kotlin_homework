@@ -5,7 +5,7 @@ interface Action {
     fun undo()
 }
 
-class InsertForward(private val newValue: Int, private val commandStorage: PerformedCommandStorage) : Action {
+class InsertForward(private val newValue: Int, private val commandStorage: CommandStorage) : Action {
     override fun perform() {
         commandStorage.data.add(0, newValue)
         commandStorage.addAction(this)
@@ -16,7 +16,7 @@ class InsertForward(private val newValue: Int, private val commandStorage: Perfo
     }
 }
 
-class InsertBack(private val newValue: Int, private val commandStorage: PerformedCommandStorage) : Action {
+class InsertBack(private val newValue: Int, private val commandStorage: CommandStorage) : Action {
     override fun perform() {
         commandStorage.data.add(newValue)
         commandStorage.addAction(this)
@@ -27,11 +27,7 @@ class InsertBack(private val newValue: Int, private val commandStorage: Performe
     }
 }
 
-class Move(
-    private val indexFrom: Int,
-    private val indexTo: Int,
-    private val commandStorage: PerformedCommandStorage
-    ) : Action {
+class Move(private val indexFrom: Int, private val indexTo: Int, private val commandStorage: CommandStorage) : Action {
     private fun moveElement(indexFrom: Int, indexTo: Int, data: MutableList<Int>) {
         val elementToMove: Int = data[indexFrom]
         data.removeAt(indexFrom)

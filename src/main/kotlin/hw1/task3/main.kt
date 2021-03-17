@@ -24,7 +24,7 @@ fun showCommandsHint() {
 }
 
 fun main() {
-    val storage = PerformedCommandStorage()
+    val storage = CommandStorage()
     showCommandsHint()
     var mustContinue: Boolean = true
     do {
