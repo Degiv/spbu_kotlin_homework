@@ -1,10 +1,5 @@
 package hw1.task3
 
-/*const val ADD_TO_START_COMMAND = 1
-const val ADD_TO_END_COMMAND = 2
-const val MOVE_COMMAND = 3
-const val UNDO_COMMAND = 4
-const val EXIT_COMMAND = 0*/
 enum class Command {
     EXIT_COMMAND,
     PRINT_COMMAND,
