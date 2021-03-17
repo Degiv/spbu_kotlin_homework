@@ -1,12 +1,12 @@
 package hw1.task3
 
-enum class Command {
-    EXIT_COMMAND,
-    PRINT_COMMAND,
-    ADD_TO_START_COMMAND,
-    ADD_TO_END_COMMAND,
-    MOVE_COMMAND,
-    UNDO_COMMAND
+enum class UserCommand {
+    EXIT,
+    PRINT,
+    ADD_TO_START,
+    ADD_TO_END,
+    MOVE,
+    UNDO
 }
 
 fun showInputHint() {
@@ -49,26 +49,26 @@ fun main() {
     do {
         showInputHint()
         var command = readLine()?.toIntOrNull()
-        while (command == null || command < Command.EXIT_COMMAND.ordinal || command > Command.UNDO_COMMAND.ordinal) {
+        while (command == null || command < UserCommand.EXIT.ordinal || command > UserCommand.UNDO.ordinal) {
             println("Incorrect input. Try again:")
             command = readLine()?.toIntOrNull()
         }
 
         when (command) {
-            Command.EXIT_COMMAND.ordinal -> mustContinue = false
+            UserCommand.EXIT.ordinal -> mustContinue = false
 
-            Command.ADD_TO_START_COMMAND.ordinal -> {
+            UserCommand.ADD_TO_START.ordinal -> {
                 var newValue = inputNumberToAdd()
                 InsertForward(newValue, storage).perform()
             }
 
-            Command.ADD_TO_END_COMMAND.ordinal -> {
+            UserCommand.ADD_TO_END.ordinal -> {
                 println("Enter a number to add to end:")
                 var newValue = inputNumberToAdd()
                 InsertBack(newValue, storage).perform()
             }
 
-            Command.MOVE_COMMAND.ordinal -> {
+            UserCommand.MOVE.ordinal -> {
                 println("Enter the index move from:")
                 var indexFrom = inputIndex(storage)
 
@@ -78,11 +78,11 @@ fun main() {
                 Move(indexFrom, indexTo, storage).perform()
             }
 
-            Command.UNDO_COMMAND.ordinal -> {
+            UserCommand.UNDO.ordinal -> {
                 storage.undoLastAction()
             }
 
-            Command.PRINT_COMMAND.ordinal -> {
+            UserCommand.PRINT.ordinal -> {
                 println("List of numbers:")
                 storage.data.forEach { print("$it ") }
                 println("")
