@@ -45,7 +45,7 @@ class Move(private val indexFrom: Int, private val indexTo: Int, private val com
 
     override fun perform() {
         if (indexFrom !in commandStorage.data.indices || indexTo !in commandStorage.data.indices) {
-            return
+            error("Invalid index")
         }
 
         moveElement(indexFrom, indexTo, commandStorage.data)
