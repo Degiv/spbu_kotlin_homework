@@ -1,7 +1,5 @@
 package hw1.task3
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane
-
 fun showInputHint() {
     println("Enter the number of command you want to perform:")
 }
