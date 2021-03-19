@@ -1,8 +1,8 @@
 package hw1.task3
 
 class CommandStorage {
-    var data = mutableListOf<Int>()
-    var commandList = mutableListOf<Action>()
+    val data = mutableListOf<Int>()
+    val commandList = mutableListOf<Action>()
 
     fun addAction(newAction: Action) {
         commandList.add(newAction)
@@ -13,7 +13,7 @@ class CommandStorage {
             println("Nothing to undo")
             return
         }
-        var lastIndex: Int = commandList.lastIndex
+        val lastIndex: Int = commandList.lastIndex
         commandList[lastIndex].undo()
         commandList.removeLast()
     }

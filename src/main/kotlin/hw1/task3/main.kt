@@ -14,7 +14,8 @@ fun showCommandsHint() {
     println("0. Exit")
 }
 
-fun inputNumber(): Int {
+fun inputNumberPrompt(prompt: String = ""): Int {
+    println(prompt)
     var number = readLine()?.toIntOrNull()
     while (number == null) {
         println("Wrong input. Try again:")
@@ -23,34 +24,30 @@ fun inputNumber(): Int {
     return number
 }
 
+fun inputIndex(prompt: String = "", storage: CommandStorage): Int {
+    var index = inputNumberPrompt(prompt)
+    while (index !in storage.data.indices) {
+        println("Index is out of range. Try again:")
+        index = inputNumberPrompt(prompt)
+    }
+    return index
+}
+
 fun performCommand(command: Int, storage: CommandStorage) {
     when (command) {
         UserCommand.ADD_TO_START.ordinal -> {
-            println("Enter a number to add to start:")
-            val newValue = inputNumber()
+            val newValue = inputNumberPrompt("Enter a number to add to start:")
             InsertForward(newValue, storage).perform()
         }
 
         UserCommand.ADD_TO_END.ordinal -> {
-            println("Enter a number to add to end:")
-            val newValue = inputNumber()
+            val newValue = inputNumberPrompt("Enter a number to add to end:")
             InsertBack(newValue, storage).perform()
         }
 
         UserCommand.MOVE.ordinal -> {
-            println("Enter the index move from:")
-            var indexFrom = inputNumber()
-            while (indexFrom !in storage.data.indices) {
-                println("Index is out of range. Try again:")
-                indexFrom = inputNumber()
-            }
-
-            println("Enter the index move to:")
-            var indexTo = inputNumber()
-            while (indexTo !in storage.data.indices) {
-                println("Index is out of range. Try again:")
-                indexTo = inputNumber()
-            }
+            val indexFrom = inputIndex("Enter the index move from:", storage)
+            val indexTo = inputIndex("Enter the index move to:", storage)
 
             Move(indexFrom, indexTo, storage).perform()
         }
