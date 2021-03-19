@@ -23,6 +23,54 @@ fun inputNumber(): Int {
     return number
 }
 
+fun performCommand(command: Int, storage: CommandStorage) {
+    when (command) {
+        UserCommand.ADD_TO_START.ordinal -> {
+            println("Enter a number to add to start:")
+            val newValue = inputNumber()
+            InsertForward(newValue, storage).perform()
+        }
+
+        UserCommand.ADD_TO_END.ordinal -> {
+            println("Enter a number to add to end:")
+            val newValue = inputNumber()
+            InsertBack(newValue, storage).perform()
+        }
+
+        UserCommand.MOVE.ordinal -> {
+            println("Enter the index move from:")
+            var indexFrom = inputNumber()
+            while (indexFrom !in storage.data.indices) {
+                println("Index is out of range. Try again:")
+                indexFrom = inputNumber()
+            }
+
+            println("Enter the index move to:")
+            var indexTo = inputNumber()
+            while (indexTo !in storage.data.indices) {
+                println("Index is out of range. Try again:")
+                indexTo = inputNumber()
+            }
+
+            Move(indexFrom, indexTo, storage).perform()
+        }
+
+        UserCommand.UNDO.ordinal -> {
+            storage.undoLastAction()
+        }
+
+        UserCommand.PRINT.ordinal -> {
+            println("List of numbers:")
+            storage.data.forEach { print("$it ") }
+            println("")
+
+            println("List of actions:")
+            storage.commandList.forEach { it.print() }
+            println("")
+        }
+    }
+}
+
 fun main() {
     val storage = CommandStorage()
     showCommandsHint()
@@ -35,52 +83,11 @@ fun main() {
             command = readLine()?.toIntOrNull()
         }
 
-        when (command) {
-            UserCommand.EXIT.ordinal -> mustContinue = false
-
-            UserCommand.ADD_TO_START.ordinal -> {
-                println("Enter a number to add to start:")
-                val newValue = inputNumber()
-                InsertForward(newValue, storage).perform()
-            }
-
-            UserCommand.ADD_TO_END.ordinal -> {
-                println("Enter a number to add to end:")
-                val newValue = inputNumber()
-                InsertBack(newValue, storage).perform()
-            }
-
-            UserCommand.MOVE.ordinal -> {
-                println("Enter the index move from:")
-                var indexFrom = inputNumber()
-                while (indexFrom !in storage.data.indices) {
-                    println("Index is out of range. Try again:")
-                    indexFrom = inputNumber()
-                }
-
-                println("Enter the index move to:")
-                var indexTo = inputNumber()
-                while (indexTo !in storage.data.indices) {
-                    println("Index is out of range. Try again:")
-                    indexTo = inputNumber()
-                }
-
-                Move(indexFrom, indexTo, storage).perform()
-            }
-
-            UserCommand.UNDO.ordinal -> {
-                storage.undoLastAction()
-            }
-
-            UserCommand.PRINT.ordinal -> {
-                println("List of numbers:")
-                storage.data.forEach { print("$it ") }
-                println("")
-
-                println("List of actions:")
-                storage.commandList.forEach { it.print() }
-                println("")
-            }
+        if (command == UserCommand.EXIT.ordinal) {
+            mustContinue = false
+        } else {
+            performCommand(command, storage)
         }
+
     } while (mustContinue)
 }
