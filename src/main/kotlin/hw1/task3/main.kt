@@ -85,10 +85,8 @@ fun main() {
 
         if (command == UserCommand.EXIT.ordinal) {
             mustContinue = false
-        }
-        else {
+        } else {
             performCommand(command, storage)
         }
-
     } while (mustContinue)
 }
