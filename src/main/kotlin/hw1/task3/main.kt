@@ -14,29 +14,19 @@ fun showCommandsHint() {
     println("0. Exit")
 }
 
-fun inputNumberToAdd(): Int {
-    println("Enter a number to add")
-    var newValue = readLine()?.toIntOrNull()
-    while (newValue == null) {
-        println("Cant be parsed as number. Try again:")
-        newValue = readLine()?.toIntOrNull()
-    }
-    return newValue
-}
-
-fun inputIndex(storage: CommandStorage): Int {
-    var index = readLine()?.toIntOrNull()
-    while (index == null || index !in storage.data.indices) {
+fun inputNumber(): Int {
+    var number = readLine()?.toIntOrNull()
+    while (number == null) {
         println("Wrong input. Try again:")
-        index = readLine()?.toIntOrNull()
+        number = readLine()?.toIntOrNull()
     }
-    return index
+    return number
 }
 
 fun main() {
     val storage = CommandStorage()
     showCommandsHint()
-    var mustContinue: Boolean = true
+    var mustContinue = true
     do {
         showInputHint()
         var command = readLine()?.toIntOrNull()
@@ -49,22 +39,31 @@ fun main() {
             UserCommand.EXIT.ordinal -> mustContinue = false
 
             UserCommand.ADD_TO_START.ordinal -> {
-                var newValue = inputNumberToAdd()
+                println("Enter a number to add to start:")
+                val newValue = inputNumber()
                 InsertForward(newValue, storage).perform()
             }
 
             UserCommand.ADD_TO_END.ordinal -> {
                 println("Enter a number to add to end:")
-                var newValue = inputNumberToAdd()
+                val newValue = inputNumber()
                 InsertBack(newValue, storage).perform()
             }
 
             UserCommand.MOVE.ordinal -> {
                 println("Enter the index move from:")
-                var indexFrom = inputIndex(storage)
+                var indexFrom = inputNumber()
+                while (indexFrom !in storage.data.indices) {
+                    println("Index is out of range. Try again:")
+                    indexFrom = inputNumber()
+                }
 
-                println("Enter the index move to")
-                var indexTo = inputIndex(storage)
+                println("Enter the index move to:")
+                var indexTo = inputNumber()
+                while (indexTo !in storage.data.indices) {
+                    println("Index is out of range. Try again:")
+                    indexTo = inputNumber()
+                }
 
                 Move(indexFrom, indexTo, storage).perform()
             }
@@ -79,7 +78,7 @@ fun main() {
                 println("")
 
                 println("List of actions:")
-                storage.commandList.forEach { print("$it ") }
+                storage.commandList.forEach { it.print() }
                 println("")
             }
         }

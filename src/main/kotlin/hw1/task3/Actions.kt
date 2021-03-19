@@ -3,6 +3,7 @@ package hw1.task3
 interface Action {
     fun perform()
     fun undo()
+    fun print()
 }
 
 class InsertForward(private val newValue: Int, private val commandStorage: CommandStorage) : Action {
@@ -14,6 +15,10 @@ class InsertForward(private val newValue: Int, private val commandStorage: Comma
     override fun undo() {
         commandStorage.data.removeFirst()
     }
+
+    override fun print() {
+        println("add ${this.newValue} to start")
+    }
 }
 
 class InsertBack(private val newValue: Int, private val commandStorage: CommandStorage) : Action {
@@ -24,6 +29,10 @@ class InsertBack(private val newValue: Int, private val commandStorage: CommandS
 
     override fun undo() {
         commandStorage.data.removeLast()
+    }
+
+    override fun print() {
+        println("add ${this.newValue} to end")
     }
 }
 
@@ -45,5 +54,9 @@ class Move(private val indexFrom: Int, private val indexTo: Int, private val com
 
     override fun undo() {
         moveElement(indexTo, indexFrom, commandStorage.data)
+    }
+
+    override fun print() {
+        println("move element from ${this.indexFrom} to ${this.indexTo}")
     }
 }
