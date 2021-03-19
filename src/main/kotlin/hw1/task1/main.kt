@@ -1,4 +1,4 @@
-package hw1.task2
+package hw1.task1
 
 fun getFactorialIterative(x: Int): Int {
     var result = 1
