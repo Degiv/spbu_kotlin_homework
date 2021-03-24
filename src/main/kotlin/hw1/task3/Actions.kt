@@ -53,7 +53,7 @@ class InsertBack(private val newValue: Int, private val commandStorage: CommandS
     }
 
     /**
-     * Undoes adding to start in fact removes the last number.
+     * Undoes adding to end in fact removes the last number.
      */
     override fun undo() {
         commandStorage.data.removeLast()
