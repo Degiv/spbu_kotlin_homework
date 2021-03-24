@@ -5,11 +5,11 @@ package hw2.task2
  * @param {String} [prompt] - user input prompt
  * @return list of integers]]
  */
-fun inputIntList(prompt: String = "") : MutableList<Int> {
+fun inputIntList(prompt: String = ""): MutableList <Int> {
     println(prompt)
-    val numbersAsStrings : List<String> = readLine().toString().split(" ")
+    val numbersAsStrings: List <String> = readLine().toString().split(" ")
     val numbers = mutableListOf<Int>()
-    for(numberAsString in numbersAsStrings) {
+    for (numberAsString in numbersAsStrings) {
         val number = numberAsString.toIntOrNull() ?: error("Incorrect input.")
         numbers.add(number)
     }
