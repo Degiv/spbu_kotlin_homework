@@ -6,5 +6,7 @@ enum class UserCommand {
     ADD_TO_START,
     ADD_TO_END,
     MOVE,
-    UNDO
+    UNDO,
+    SERIALIZE,
+    DESERIALIZE
 }
