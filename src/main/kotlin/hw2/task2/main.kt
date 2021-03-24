@@ -1,9 +1,9 @@
 package hw2.task2
 
 /**
- * inputs list of integers
- * @param {String} [prompt] - user input prompt
- * @return list of integers]]
+ * inputs list of integers.
+ * @param {String} [prompt] - user input prompt.
+ * @return list of integers.
  */
 fun inputIntList(prompt: String = ""): MutableList <Int> {
     println(prompt)
