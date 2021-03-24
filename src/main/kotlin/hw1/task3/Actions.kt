@@ -106,7 +106,7 @@ class Move(private val indexFrom: Int, private val indexTo: Int, private val com
     }
 
     /**
-     * Prints a description of this action.
+     * Prints a description of this action.'
      */
     override fun print() {
         println("move element from ${this.indexFrom} to ${this.indexTo}")
