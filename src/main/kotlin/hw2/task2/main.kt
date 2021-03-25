@@ -7,7 +7,7 @@ package hw2.task2
 fun inputIntList(): List <Int> {
     println("Enter your array of numbers in one line: ")
     val numbersAsStrings = readLine().toString().split(" ")
-    return numbersAsStrings.map { it.toIntOrNull() ?: error("Incorrect input.")}
+    return numbersAsStrings.map { it.toIntOrNull() ?: error("Incorrect input.") }
 }
 
 fun <T> List<T>.withoutDuplicates(): List<T> {
