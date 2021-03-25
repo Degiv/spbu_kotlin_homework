@@ -80,7 +80,7 @@ fun performCommand(command: Int, storage: CommandStorage, fileName: String) {
 
 fun main() {
     val storage = CommandStorage()
-    val fileName = "resources/ActionList.json"
+    val fileName = "src/main/resources/ActionList.json"
     showCommandsHint(fileName)
     var mustContinue = true
     do {
