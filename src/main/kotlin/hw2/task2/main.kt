@@ -4,11 +4,10 @@ package hw2.task2
  * inputs list of integers.
  * @return list of integers.
  */
-fun inputIntList(): MutableList <Int> {
+fun inputIntList(): List <Int> {
     println("Enter your array of numbers in one line: ")
-    val numbers = mutableListOf<Int>()
-    readLine().toString().split(" ").forEach { numbers.add(it.toIntOrNull() ?: error("Incorrect input.")) }
-    return numbers
+    val numbersAsStrings = readLine().toString().split(" ")
+    return numbersAsStrings.map { it.toIntOrNull() ?: error("Incorrect input.")}
 }
 
 fun <T> List<T>.withoutDuplicates(): List<T> {
