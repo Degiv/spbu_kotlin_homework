@@ -27,7 +27,7 @@ class CommandStorage {
             println("Nothing to undo")
             return
         }
-        commandList.last().undo()
+        commandList.last().undo(this)
         commandList.removeLast()
     }
 
