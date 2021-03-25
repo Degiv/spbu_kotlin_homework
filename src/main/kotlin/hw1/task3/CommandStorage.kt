@@ -29,6 +29,7 @@ class CommandStorage {
         }
         val lastIndex: Int = commandList.lastIndex
         commandList[lastIndex].undo(this)
+        commandList.last().undo()
         commandList.removeLast()
     }
 
