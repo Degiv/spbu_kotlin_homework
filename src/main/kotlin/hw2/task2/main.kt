@@ -6,9 +6,8 @@ package hw2.task2
  */
 fun inputIntList(): MutableList <Int> {
     println("Enter your array of numbers in one line: ")
-    val numbersAsStrings = readLine().toString().split(" ")
     val numbers = mutableListOf<Int>()
-    numbersAsStrings.forEach { numbers.add(it.toIntOrNull() ?: error("Incorrect input.")) }
+    readLine().toString().split(" ").forEach { numbers.add(it.toIntOrNull() ?: error("Incorrect input.")) }
     return numbers
 }
 
