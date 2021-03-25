@@ -27,8 +27,6 @@ class CommandStorage {
             println("Nothing to undo")
             return
         }
-        val lastIndex: Int = commandList.lastIndex
-        commandList[lastIndex].undo(this)
         commandList.last().undo()
         commandList.removeLast()
     }
