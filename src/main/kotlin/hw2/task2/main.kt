@@ -2,21 +2,21 @@ package hw2.task2
 
 /**
  * inputs list of integers.
- * @param {String} [prompt] - user input prompt.
  * @return list of integers.
  */
-fun inputIntList(prompt: String = ""): MutableList <Int> {
-    println(prompt)
-    val numbersAsStrings: List <String> = readLine().toString().split(" ")
+fun inputIntList(): MutableList <Int> {
+    println("Enter your array of numbers in one line: ")
+    val numbersAsStrings = readLine().toString().split(" ")
     val numbers = mutableListOf<Int>()
-    for (numberAsString in numbersAsStrings) {
-        val number = numberAsString.toIntOrNull() ?: error("Incorrect input.")
-        numbers.add(number)
-    }
+    numbersAsStrings.forEach { numbers.add(it.toIntOrNull() ?: error("Incorrect input.")) }
     return numbers
 }
 
+fun <T> List<T>.withoutDuplicates(): List<T> {
+    return this.asReversed().distinct().asReversed()
+}
+
 fun main() {
-    val numbers = inputIntList("Enter your array of numbers in one line: ")
-    print("Your array without duplicates: ${numbers.asReversed().distinct().asReversed()}")
+    val numbers = inputIntList()
+    print("Your array without duplicates: ${numbers.withoutDuplicates()}")
 }
