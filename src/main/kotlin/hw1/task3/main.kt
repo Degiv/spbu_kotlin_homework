@@ -4,13 +4,15 @@ fun showInputHint() {
     println("Enter the number of command you want to perform:")
 }
 
-fun showCommandsHint() {
+fun showCommandsHint(filename: String) {
     println("Commands list:")
     println("1. Print log")
     println("2. Add number to start")
     println("3. Add number to end")
     println("4. Move element")
     println("5. Undo last action")
+    println("6. Serialize list of performed actions into file '$filename'")
+    println("7. Deserialize list of actions from file '$filename'")
     println("0. Exit")
 }
 
@@ -33,23 +35,23 @@ fun inputIndex(prompt: String = "", storage: CommandStorage): Int {
     return index
 }
 
-fun performCommand(command: Int, storage: CommandStorage) {
+fun performCommand(command: Int, storage: CommandStorage, fileName: String) {
     when (command) {
         UserCommand.ADD_TO_START.ordinal -> {
             val newValue = inputNumberPrompt("Enter a number to add to start:")
-            InsertForward(newValue, storage).perform()
+            InsertForward(newValue).perform(storage)
         }
 
         UserCommand.ADD_TO_END.ordinal -> {
             val newValue = inputNumberPrompt("Enter a number to add to end:")
-            InsertBack(newValue, storage).perform()
+            InsertBack(newValue).perform(storage)
         }
 
         UserCommand.MOVE.ordinal -> {
             val indexFrom = inputIndex("Enter the index move from:", storage)
             val indexTo = inputIndex("Enter the index move to:", storage)
 
-            Move(indexFrom, indexTo, storage).perform()
+            Move(indexFrom, indexTo).perform(storage)
         }
 
         UserCommand.UNDO.ordinal -> {
@@ -62,20 +64,29 @@ fun performCommand(command: Int, storage: CommandStorage) {
             println("")
 
             println("List of actions:")
-            storage.commandList.forEach { it.print() }
+            storage.commandList.forEach { it.print(storage) }
             println("")
+        }
+
+        UserCommand.SERIALIZE.ordinal -> {
+            storage.serialize(fileName)
+        }
+
+        UserCommand.DESERIALIZE.ordinal -> {
+            storage.deserialize(fileName)
         }
     }
 }
 
 fun main() {
     val storage = CommandStorage()
-    showCommandsHint()
+    val fileName = "src/main/resources/hw1/task3/ActionList.json"
+    showCommandsHint(fileName)
     var mustContinue = true
     do {
         showInputHint()
         var command = readLine()?.toIntOrNull()
-        while (command == null || command < UserCommand.EXIT.ordinal || command > UserCommand.UNDO.ordinal) {
+        while (command == null || command < UserCommand.EXIT.ordinal || command > UserCommand.DESERIALIZE.ordinal) {
             println("Incorrect input. Try again:")
             command = readLine()?.toIntOrNull()
         }
@@ -83,7 +94,7 @@ fun main() {
         if (command == UserCommand.EXIT.ordinal) {
             mustContinue = false
         } else {
-            performCommand(command, storage)
+            performCommand(command, storage, fileName)
         }
     } while (mustContinue)
 }
