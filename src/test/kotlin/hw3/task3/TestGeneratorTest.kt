@@ -38,8 +38,8 @@ internal class TestGeneratorTest {
     @ParameterizedTest(name = "{index} {0}")
     fun getFile(expectedName: String, testGeneratorConfig: TestGeneratorConfig) {
         assertEquals(
-            javaClass.getResource(expectedName).readText(),
-            TestGenerator(testGeneratorConfig).file.toString()
+            javaClass.getResource(expectedName).readText().replace("\r\n", "\n"),
+            TestGenerator(testGeneratorConfig).file.toString().replace("\r\n", "\n")
         )
     }
 }
