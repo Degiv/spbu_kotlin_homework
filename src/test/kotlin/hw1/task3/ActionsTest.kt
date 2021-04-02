@@ -84,6 +84,6 @@ internal class MoveTest {
     @Test
     fun performOutOfBounds() {
         InsertBack(5).perform(storageTest)
-        assertThrows<java.lang.IllegalStateException> { Move(-1, 2).perform(storageTest) }
+        assertThrows<IllegalStateException> { Move(-1, 2).perform(storageTest) }
     }
 }

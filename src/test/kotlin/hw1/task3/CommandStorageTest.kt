@@ -2,7 +2,9 @@ package hw1.task3
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.io.TempDir
 import java.io.File
+import java.nio.file.Path
 
 internal class CommandStorageTest {
     private val storageTest = CommandStorage()
@@ -29,21 +31,19 @@ internal class CommandStorageTest {
     }
 
     @Test
-    fun serialize() {
+    fun serialize(@TempDir tempDir: Path) {
         InsertBack(1).perform(storageTest)
         InsertBack(2).perform(storageTest)
         InsertBack(3).perform(storageTest)
         InsertBack(4).perform(storageTest)
-        val fileWriteTo = "src/test/resources/hw1/task3/ActionList.json"
-        val fileEqualTo = "src/test/resources/hw1/task3/equalTo.json"
-        storageTest.serialize(fileWriteTo)
-        assertEquals(File(fileEqualTo).readText(), File(fileWriteTo).readText())
+        val fileWriteTo = tempDir.resolve("writeTo.json")
+        storageTest.serialize(fileWriteTo.toString())
+        assertEquals(javaClass.getResource("ActionList.json").readText(), File(fileWriteTo.toString()).readText())
     }
 
     @Test
     fun deserialize() {
-        val fileReadFrom = "src/test/resources/hw1/task3/readFrom.json"
-        storageTest.deserialize(fileReadFrom)
-        assertEquals(listOf(7, 5, 3, 1), storageTest.data)
+        storageTest.deserialize(javaClass.getResource("ActionList.json").path)
+        assertEquals(listOf(1, 2, 3, 4), storageTest.data)
     }
 }
