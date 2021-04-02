@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import java.net.URL
 
 plugins {
@@ -21,6 +22,7 @@ repositories {
 dependencies {
     testImplementation(kotlin("test-junit"))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
 
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.14.2")
 }
@@ -32,7 +34,16 @@ detekt {
 }
 
 tasks.test {
-    useJUnit()
+    useJUnitPlatform()
+    testLogging {
+        events(
+            TestLogEvent.STANDARD_ERROR,
+            TestLogEvent.STARTED,
+            TestLogEvent.PASSED,
+            TestLogEvent.FAILED,
+            TestLogEvent.SKIPPED
+        )
+    }
 }
 
 tasks.withType<KotlinCompile>() {
