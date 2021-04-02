@@ -1,0 +1,5 @@
+package name: hw1.task3
+class name: InsertBack
+functions:
+  - name: "perform"
+  - name: "undo"
