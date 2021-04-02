@@ -38,12 +38,12 @@ internal class CommandStorageTest {
         InsertBack(4).perform(storageTest)
         val fileWriteTo = tempDir.resolve("writeTo.json")
         storageTest.serialize(fileWriteTo.toString())
-        assertEquals(javaClass.getResource("ActionList.json").readText(), File(fileWriteTo.toString()).readText())
+        assertEquals(javaClass.getResource("ActionListTest.json").readText(), File(fileWriteTo.toString()).readText())
     }
 
     @Test
     fun deserialize() {
-        storageTest.deserialize(javaClass.getResource("ActionList.json").path)
+        storageTest.deserialize(javaClass.getResource("ActionListTest.json").path)
         assertEquals(listOf(1, 2, 3, 4), storageTest.data)
     }
 }
