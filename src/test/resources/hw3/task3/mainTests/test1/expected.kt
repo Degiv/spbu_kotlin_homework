@@ -2,7 +2,7 @@ package common
 
 import org.junit.jupiter.api.Test
 
-internal class Stack {
+internal class StackTest {
   @Test
   fun pushBack() {
   }

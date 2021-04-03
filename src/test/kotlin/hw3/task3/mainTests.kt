@@ -14,10 +14,10 @@ internal class MainTests {
         @JvmStatic
         fun inputData(): List<Arguments> = listOf(
             Arguments.of(
-                "test1", "test1/Stack.kt"
+                "test1", "common/StackTest.kt"
             ),
             Arguments.of(
-                "test2", "test2/Person.kt"
+                "test2", "meeting/PersonTest.kt"
             )
         )
     }

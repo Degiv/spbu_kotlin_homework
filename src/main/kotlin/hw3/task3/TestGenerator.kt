@@ -6,6 +6,11 @@ import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.ClassName
 
+/**
+ * Generates a test class with required functions.
+ * @param testGeneratorConfig Config of test class.
+ * @property file File to write the test class.
+ */
 class TestGenerator(private val testGeneratorConfig: TestGeneratorConfig) {
     private val testClassName = "${testGeneratorConfig.className}Test"
 

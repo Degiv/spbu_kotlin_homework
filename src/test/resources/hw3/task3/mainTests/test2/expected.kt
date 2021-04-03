@@ -2,7 +2,7 @@ package meeting
 
 import org.junit.jupiter.api.Test
 
-internal class Person {
+internal class PersonTest {
   @Test
   fun say() {
   }
