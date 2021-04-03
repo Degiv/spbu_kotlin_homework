@@ -29,6 +29,6 @@ internal class MainTests {
         val config = javaClass.getResource("mainTests/$directoryName/config.yaml").path
         val file = tempDir.resolve(tempFileName)
         generateTestFile(config, tempDir.toString())
-        assertEquals(expectedCode, file.toFile().readText())
+        assertEquals(expectedCode.replace("\r\n", "\n"), file.toFile().readText().replace("\r\n", "\n"))
     }
 }
