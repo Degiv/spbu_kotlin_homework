@@ -1,0 +1,5 @@
+package name: meeting
+class name: Person
+functions:
+  - name: "say"
+  - name: "listen"

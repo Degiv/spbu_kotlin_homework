@@ -1,0 +1,5 @@
+package name: common
+class name: Stack
+functions:
+  - name: "pushBack"
+  - name: "pop"
