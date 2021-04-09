@@ -141,7 +141,7 @@ class AVLNode<K : Comparable<K>, V>(private val privateKey: K, private var priva
                 leftChild?.containsValue(value) ?: false ||
                 rightChild?.containsValue(value) ?: false
     }
-    
+
     fun printPrefix() {
         print("${this.key} ${this.value} (")
         leftChild?.printPrefix() ?: print("null ")
