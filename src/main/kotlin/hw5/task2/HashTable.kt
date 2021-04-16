@@ -7,7 +7,6 @@ class HashTable<K, V>(private var hashFunction: HashFunction<K>) {
     private var size = 1
     private var dataArray: Array<MutableList<Element<K, V>>> = Array(size) { mutableListOf() }
     private var elementCounter = 0
-    private var conflictCounter = 0
     private val loadFactor: Double
         get() = elementCounter / size.toDouble()
 
@@ -16,7 +15,7 @@ class HashTable<K, V>(private var hashFunction: HashFunction<K>) {
     }
 
     fun add(key: K, value: V) {
-        val hash = hashFunction.getHash(key) % size
+        val hash = hashFunction.getHash(key, size)
         val element = dataArray[hash].find { key == it.key }
         if (element != null) {
             if (value != element.value) {
@@ -40,7 +39,7 @@ class HashTable<K, V>(private var hashFunction: HashFunction<K>) {
         val newArray = Array(size) { mutableListOf<Element<K, V>>() }
         dataArray.forEach { list ->
             list.forEach { element ->
-                val hash = hashFunction.getHash(element.key) % (size)
+                val hash = hashFunction.getHash(element.key, size)
                 newArray[hash].add(element)
             }
         }
@@ -48,7 +47,7 @@ class HashTable<K, V>(private var hashFunction: HashFunction<K>) {
     }
 
     fun remove(key: K): Boolean {
-        val hash = hashFunction.getHash(key) % (size)
+        val hash = hashFunction.getHash(key, size)
         val element = dataArray[hash].find { key == it.key }
         if (element != null) {
             dataArray[hash].remove(element)
@@ -57,13 +56,13 @@ class HashTable<K, V>(private var hashFunction: HashFunction<K>) {
         return element != null
     }
 
-    fun get(key: K): V? {
-        val hash = hashFunction.getHash(key) % size
+    operator fun get(key: K): V? {
+        val hash = hashFunction.getHash(key, size)
         return dataArray[hash].find { key == it.key }?.value
     }
 
     fun contains(key: K): Boolean {
-        val hash = hashFunction.getHash(key) % size
+        val hash = hashFunction.getHash(key, size)
         return dataArray[hash].find { key == it.key } != null
     }
 
@@ -72,7 +71,20 @@ class HashTable<K, V>(private var hashFunction: HashFunction<K>) {
         updateHashTable()
     }
 
-    fun showStatistic(): String {
-        TODO()
+    fun showStatistic() {
+        println("size of table: $size")
+        println("load factor: $loadFactor")
+        var conflictCounter = 0
+        var maxLength = 0
+        dataArray.forEach {
+            if (it.size > 1) {
+                ++conflictCounter
+                maxLength = kotlin.math.max(maxLength, it.size)
+            }
+        }
+        println("number of conflicts: $conflictCounter")
+        println("max length of list: $maxLength")
+        println("data:")
+        dataArray.forEach { println(it) }
     }
 }

@@ -1,22 +1,30 @@
 package hw5.task2
 
 interface HashFunction<K> {
+    val name: String
     fun getHash(key: K, mod: Int): Int
 }
 
+val hashFunctions = listOf(PolynomialHashFunction(), SumHashFunction(), XorHashFunction())
+
 class PolynomialHashFunction : HashFunction<String> {
-    companion object {
-        const val QUOTIENT = 31
-    }
+
+    override val name = "Polynomial"
+
     override fun getHash(key: String, mod: Int): Int {
-        val QUOTIENT = 31
         var result = 0
-        key.toCharArray().forEach { result = (result * QUOTIENT + it.toInt()) % mod }
+        key.toCharArray().forEach { result = (result * Companion.QUOTIENT + it.toInt()) % mod }
         return result
+    }
+
+    companion object {
+        private const val QUOTIENT = 31
     }
 }
 
 class SumHashFunction : HashFunction<String> {
+    override val name = "Sum"
+
     override fun getHash(key: String, mod: Int): Int {
         var result = 0
         key.toCharArray().forEach { result = (result + it.toInt()) % mod }
@@ -25,6 +33,8 @@ class SumHashFunction : HashFunction<String> {
 }
 
 class XorHashFunction : HashFunction<String> {
+    override val name = "Xor"
+
     override fun getHash(key: String, mod: Int): Int {
         var result = 0
         key.toCharArray().forEach { result = result xor it.toInt() }
