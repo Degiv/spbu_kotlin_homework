@@ -12,41 +12,28 @@ class ArithmeticTree(path: String) {
         root = parseTree()
     }
 
+    private fun isNumber(char: Char) = char in '0'..'9'
+
     private fun parseTree(): ArithmeticTreeNode {
-        val current = ArithmeticTreeNode()
         if (expression[index] == '(') {
             index++
-            current.asChar = expression.get(index++)
+            val operation = expression[index++]
             index++
-            current.leftChild = parseTree()
+            val leftChild = parseTree()
             index++
-            current.rightChild = parseTree()
+            val rightChild = parseTree()
             index++
+            return Operation(operation, leftChild, rightChild)
         } else {
-            current.asChar = expression.get(index++)
+            return Operand(Character.getNumericValue(expression[index++]))
         }
-        return current
     }
 
     fun calculate(): Int {
         return root.calculate()
     }
 
-    private fun printRecursive(current: ArithmeticTreeNode) {
-        if (current.leftChild != null) {
-            print('(')
-            current.print()
-            print(' ')
-            printRecursive(current.leftChild!!)
-            print(' ')
-            printRecursive(current.rightChild!!)
-            print(')')
-        } else {
-            current.print()
-        }
-    }
-
     fun print() {
-        printRecursive(root)
+        print(root.toString())
     }
 }

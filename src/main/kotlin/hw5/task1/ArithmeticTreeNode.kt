@@ -1,30 +1,39 @@
 package hw5.task1
 
-class ArithmeticTreeNode {
-    var asChar: Char = '\n'
-    var leftChild: ArithmeticTreeNode? = null
-    var rightChild: ArithmeticTreeNode? = null
+interface ArithmeticTreeNode {
+    fun calculate(): Int
+    override fun toString(): String
+}
 
-    private val isNumber: Boolean
-        get() = asChar in '0'..'9'
-
-    fun print() {
-        print(asChar)
+class Operand(val value: Int) : ArithmeticTreeNode {
+    override fun calculate(): Int {
+        return value
     }
 
-    fun calculate(): Int {
-        return if (isNumber) {
-            Character.getNumericValue(asChar)
-        } else {
-            val leftResult = leftChild?.calculate() ?: throw NullPointerException("leftChild is null.")
-            val rightResult = rightChild?.calculate() ?: throw NullPointerException("rightChild is null.")
-            when (asChar) {
-                '+' -> leftResult + rightResult
-                '-' -> leftResult - rightResult
-                '*' -> leftResult * rightResult
-                '/' -> leftResult / rightResult
-                else -> 0
-            }
+    override fun toString(): String {
+        return value.toString()
+    }
+}
+
+class Operation(
+    var operation: Char,
+    var leftChild: ArithmeticTreeNode,
+    var rightChild: ArithmeticTreeNode
+) : ArithmeticTreeNode {
+
+    override fun toString(): String {
+        return "($operation $leftChild $rightChild)"
+    }
+
+    override fun calculate(): Int {
+        val leftResult = leftChild.calculate()
+        val rightResult = rightChild.calculate()
+        return when (operation) {
+            '+' -> leftResult + rightResult
+            '-' -> leftResult - rightResult
+            '*' -> leftResult * rightResult
+            '/' -> leftResult / rightResult
+            else -> 0
         }
     }
 }
