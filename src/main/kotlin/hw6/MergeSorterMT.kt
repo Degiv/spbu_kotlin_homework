@@ -1,6 +1,6 @@
 package hw6
 
-class MergeSorter {
+class MergeSorterMT {
     data class Subarray(val leftBound: Int, val rightBound: Int)
 
     fun mergeSortMT(arrayToSort: IntArray, numberOfThreads: Int) {
