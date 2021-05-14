@@ -36,7 +36,7 @@ internal class MergeSorterTest {
     @MethodSource("inputData")
     @ParameterizedTest(name = "test{index}, {1}")
     fun mergeSortingTest(expectedArray: IntArray, actualArray: IntArray, threadsNumber: Int) {
-        MergeSorter().mergeSortMT(actualArray, threadsNumber)
+        MergeSorterMT().mergeSortMT(actualArray, threadsNumber)
         assertArrayEquals(expectedArray, actualArray)
     }
 }
