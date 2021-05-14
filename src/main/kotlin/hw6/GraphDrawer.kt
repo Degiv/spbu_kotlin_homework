@@ -58,7 +58,7 @@ class GraphDrawer(numbersOfThreads: List<Int>, maxNumberOfElements: Int, step: I
     private fun measureTime(numberOfThreads: Int, numberOfElements: Int): Long {
         val array = IntArray(numberOfElements) { Random.nextInt() }
         var time = System.nanoTime()
-        MergeSorter().mergeSortMT(array, numberOfThreads)
+        MergeSorterMT().mergeSortMT(array, numberOfThreads)
         time = System.nanoTime() - time
         return time
     }
