@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber")
+
 package hw6
 
 fun main() {
