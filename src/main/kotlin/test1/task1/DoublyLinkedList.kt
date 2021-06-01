@@ -71,7 +71,7 @@ class DoublyLinkedList<T> {
             error("Wrong position to remove")
         }
 
-        when(size) {
+        when (size) {
             1 -> {
                 head = null
                 tail = null
@@ -86,7 +86,7 @@ class DoublyLinkedList<T> {
                 }
             }
             else -> {
-                when(position) {
+                when (position) {
                     0 -> {
                         head = head?.next
                         head?.previous = null
