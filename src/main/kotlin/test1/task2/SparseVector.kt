@@ -1,6 +1,6 @@
 package test1.task2
 
-class SparseVector() {
+class SparseVector {
     private val data = mutableMapOf<Int, Int>()
 
     operator fun get(i: Int): Int {
@@ -18,7 +18,9 @@ class SparseVector() {
         }
 
         for (current in operand.data) {
-            sum.data[current.key] = current.value + (data[current.key] ?: 0)
+            if (!data.containsKey(current.key)) {
+                sum.data[current.key] = current.value + (data[current.key] ?: 0)
+            }
         }
         return sum
     }
@@ -30,7 +32,9 @@ class SparseVector() {
         }
 
         for (current in operand.data) {
-            subtract.data[current.key] = (data[current.key] ?: 0) - current.value
+            if (!data.containsKey(current.key)) {
+                subtract.data[current.key] = (data[current.key] ?: 0) - current.value
+            }
         }
         return subtract
     }
