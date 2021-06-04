@@ -1,6 +1,6 @@
 package hw6
 
-class MergeSorterMT {
+class   MergeSorterMT {
     data class Subarray(val leftBound: Int, val rightBound: Int)
 
     fun mergeSortMT(arrayToSort: IntArray, numberOfThreads: Int) {
@@ -13,7 +13,7 @@ class MergeSorterMT {
             sortedArray = tempArray,
             numberOfThreads = numberOfThreads
         )
-        arrayToSort.indices.forEach { arrayToSort[it] = tempArray[it] }
+        tempArray.copyInto(arrayToSort)
     }
 
     private fun IntArray.binarySearch(valueToFind: Int, left: Int, right: Int): Int {
