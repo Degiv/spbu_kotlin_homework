@@ -15,6 +15,14 @@ class SparseVector{
         data[i] = value
     }
 
+    fun addAll(elements: List<Pair<Int, Int>>) {
+        elements.forEach {
+            if (it.second != 0) {
+                data[it.first] = it.second
+            }
+        }
+    }
+
     private fun sizeCheck(vectorFirst: SparseVector, vectorSecond: SparseVector) {
         if (vectorFirst.size != vectorSecond.size) {
             error("Different size of vectors.")
@@ -58,7 +66,7 @@ class SparseVector{
      */
     operator fun times(operand: SparseVector): Int {
         sizeCheck(this, operand)
-        
+
         var scalar = 0
         for (current in data) {
             scalar += current.value * (operand.data[current.key] ?: 0)
