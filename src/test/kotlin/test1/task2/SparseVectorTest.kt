@@ -4,8 +4,9 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 
 class SparseVectorTest {
-    val firstVector = SparseVector()
-    val secondVector = SparseVector()
+    val firstVector = SparseVector<Int>()
+    val secondVector = SparseVector<Int>()
+
     @Test
     fun setAndGetTest() {
         firstVector.addAll(listOf(Pair(1, 12), Pair(5, 7), Pair(6, 9), Pair(9, 13), Pair(13, 0)))
