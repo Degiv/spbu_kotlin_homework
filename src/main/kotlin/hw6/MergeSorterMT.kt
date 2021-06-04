@@ -1,7 +1,10 @@
 package hw6
 
-class   MergeSorterMT {
-    data class Subarray(val leftBound: Int, val rightBound: Int)
+class MergeSorterMT {
+    data class Subarray(val leftBound: Int, val rightBound: Int) {
+        val getMid: Int
+            get() = (leftBound + rightBound) / 2
+    }
 
     fun mergeSortMT(arrayToSort: IntArray, numberOfThreads: Int) {
         if (arrayToSort.isEmpty()) {
@@ -52,8 +55,7 @@ class   MergeSorterMT {
         if (firstPartSize == 0) {
             return
         }
-        val midOfFirstPart =
-            (firstPart.leftBound + firstPart.rightBound) / 2
+        val midOfFirstPart = firstPart.getMid
         val midOfSecondPart =
             this.binarySearch(this[midOfFirstPart], secondPart.leftBound, secondPart.rightBound)
         val halfOfFirstPartSize = midOfFirstPart - firstPart.leftBound
@@ -100,7 +102,7 @@ class   MergeSorterMT {
             sortedArray[leftBoundOfRemainder] = this[sortingPart.leftBound]
         } else {
             val tempArray = IntArray(sortingPartSize) { 0 }
-            val mid = (sortingPart.leftBound + sortingPart.rightBound) / 2
+            val mid = sortingPart.getMid
             val newMiddle = mid - sortingPart.leftBound
             if (numberOfThreads == 1) {
                 this.mergeSortingMultiThread(
