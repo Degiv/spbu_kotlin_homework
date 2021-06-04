@@ -1,6 +1,6 @@
 package test1.task2
 
-class SparseVector{
+class SparseVector {
     private val data = mutableMapOf<Int, Int>()
     private var size = 0
 
