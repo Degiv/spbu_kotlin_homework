@@ -3,7 +3,7 @@ package test3
 fun ByteArray.compress(): ByteArray {
     val listOfRepetitions = mutableListOf<Byte>()
     var previous = this[0]
-    var repetitionsCounter= 0
+    var repetitionsCounter = 0
 
     for (byte in this) {
         if (byte == previous) {
@@ -35,8 +35,7 @@ fun ByteArray.decompress(): ByteArray {
         if (currentType == ByteType.BYTE) {
             lastByte = byte
             currentType = ByteType.TIMES
-        }
-        else {
+        } else {
             repeat(byte.toInt()) {
                 listOfBytes.add(lastByte)
             }
