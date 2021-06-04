@@ -43,7 +43,7 @@ class SparseVector {
      * Scalar product
      */
     operator fun times(operand: SparseVector): Int{
-        var scalar = 0//
+        var scalar = 0
         for (current in data) {
             scalar += current.value * (operand.data[current.key] ?: 0)
         }
