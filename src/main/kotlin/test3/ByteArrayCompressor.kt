@@ -1,6 +1,10 @@
 package test3
 
 fun ByteArray.compress(): ByteArray {
+    if (this.isEmpty()) {
+        return this
+    }
+
     val listOfRepetitions = mutableListOf<Byte>()
     var previous = this[0]
     var repetitionsCounter = 0
@@ -29,16 +33,16 @@ enum class ByteType {
 
 fun ByteArray.decompress(): ByteArray {
     val listOfBytes = mutableListOf<Byte>()
-    var currentType = ByteType.BYTE
-    var lastByte: Byte = 0
+    var currentType = ByteType.TIMES
+    var lastTimes: Byte = 0
     for (byte in this) {
         if (currentType == ByteType.BYTE) {
-            lastByte = byte
+            repeat(lastTimes.toInt()) {
+                listOfBytes.add(byte)
+            }
             currentType = ByteType.TIMES
         } else {
-            repeat(byte.toInt()) {
-                listOfBytes.add(lastByte)
-            }
+            lastTimes = byte
             currentType = ByteType.BYTE
         }
     }
